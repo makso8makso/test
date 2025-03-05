@@ -25,6 +25,11 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone number:</label>
+                        <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ old('phone_number', $user->phone_number) }}" required>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="status" class="form-label">Status:</label>
                         <select id="status" name="status" class="form-control">
                             <option value="active" {{ $user->status === "active" ? "selected" : "" }}>Active</option>
