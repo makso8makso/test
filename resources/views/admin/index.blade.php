@@ -8,11 +8,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <a href="http://127.0.0.1:8000/create-user" class="p-3 btn btn-info">Add new user</a>
                 <x-welcome />
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Photo</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Status</th>
@@ -21,8 +23,10 @@
                     </thead>
                     <tbody>
                     @foreach ($users as $user)
+                        {{ $user }}
                         <tr>
                             <th scope="row">{{ $user->id }}</th>
+                            <td><img src="{{ $user->profile_photo_url }}" alt="profile-image" class="img-thumbnail"></td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->status }}</td>
