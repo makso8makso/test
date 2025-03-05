@@ -26,7 +26,7 @@
 
                     <div class="mb-3">
                         <label for="phone_number" class="form-label">Phone number:</label>
-                        <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ old('phone_number', $user->phone_number) }}" required>
+                        <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ old('phone_number', $user->phone_number) }}">
                     </div>
 
                     <div class="mb-3">
@@ -36,6 +36,24 @@
                             <option value="inactive" {{ $user->status === "inactive" ? "selected" : "" }}>Inactive</option>
                             <option value="banned" {{ $user->status === "banned" ? "selected" : "" }}>Banned</option>
                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="photos" class="form-label">Photo:</label>
+                        @if($user->profile_photo_path)
+                            <td>
+                                <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="profile-image" class="img-thumbnail" width="150px">
+                            </td>
+                        @else
+                            <td>
+                                <img src="{{ $user->profile_photo_url }}" alt="profile-image" class="img-thumbnail" width="150px">
+                            </td>
+                        @endif
+                    </div>
+
+                    <div class="mt-4 mb-4">
+                        <x-label for="photo" value="{{ __('Photo') }}"/>
+                        <x-input id="photo" class="block mt-1 w-full" type="file" name="photo" />
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>

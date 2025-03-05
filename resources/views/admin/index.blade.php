@@ -23,10 +23,17 @@
                     </thead>
                     <tbody>
                     @foreach ($users as $user)
-                        {{ $user }}
                         <tr>
                             <th scope="row">{{ $user->id }}</th>
-                            <td><img src="{{ $user->profile_photo_url }}" alt="profile-image" class="img-thumbnail"></td>
+                            @if($user->profile_photo_path)
+                                <td>
+                                    <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="profile-image" class="img-thumbnail" width="150px">
+                                </td>
+                            @else
+                                <td>
+                                    <img src="{{ $user->profile_photo_url }}" alt="profile-image" class="img-thumbnail" width="150px">
+                                </td>
+                            @endif
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->status }}</td>
