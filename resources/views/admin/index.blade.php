@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <a href="http://127.0.0.1:8000/create-user" class="p-3 btn btn-info">Add new user</a>
+                <a href="http://127.0.0.1:8000/user/create" class="p-3 btn btn-info">Add new user</a>
                 <x-welcome />
                 <table class="table">
                     <thead>
