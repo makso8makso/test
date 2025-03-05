@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form action="{{ route('admin.user.edit', $user->id) }}" method="POST" class="p-3">
+                <form action="{{ route('admin.user.edit', $user->id) }}" method="POST" class="p-3" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -51,9 +51,19 @@
                         @endif
                     </div>
 
+                    <div class="mt-4">
+                        <x-label for="password" value="{{ __('Password') }}" />
+                        <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                        <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                    </div>
+
                     <div class="mt-4 mb-4">
                         <x-label for="photo" value="{{ __('Photo') }}"/>
-                        <x-input id="photo" class="block mt-1 w-full" type="file" name="photo" />
+                        <x-input id="photo" class="block mt-1 w-full" type="file" name="photo"/>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>

@@ -30,11 +30,28 @@ class UserController extends Controller
     public function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone_number' => ['nullable', 'string', 'max:255'],
+            'profile_photo_path' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048', 'dimensions:max_width=400,max_height=400'],
+            'password' => $this->passwordRules()
+        ])->validate();
+
+        if ($user->photo && Storage::exists($user->photo)) {
+            Storage::delete($user->photo);
         }
 
-        $user->update($request->all());
+        $photoPath = $request->all()['photo']->store('photos', 'public');
+
+        $user->update([
+            'name' => $request->all()['name'],
+            'email' => $request->all()['email'],
+            'phone_number' => $request->all()['phone_number'],
+            'profile_photo_path' => $photoPath,
+            'password' => Hash::make($request->all()['password']),
+        ]);
 
         $users = User::paginate(3);
 
