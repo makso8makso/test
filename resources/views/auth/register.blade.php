@@ -56,6 +56,36 @@
                 </div>
             @endif
 
+            <x-label for="addresses" value="{{ __('Addresses') }}" class="mt-3"/>
+            <div id="address">
+                <div class="mt-4 duplicateAddressDiv">
+                    <hr>
+                    <div class="mt-4 country">
+                        <x-label for="country" value="{{ __('Country') }}"/>
+                        <x-input id="country" class="block mt-1 w-full" type="text" name="country[]"/>
+                    </div>
+
+                    <div class="mt-4 postal_code">
+                        <x-label for="postal_code" value="{{ __('Postal code') }}"/>
+                        <x-input id="postal_code" class="block mt-1 w-full" type="text" name="postal_code[]"/>
+                    </div>
+
+                    <div class="mt-4 city">
+                        <x-label for="city" value="{{ __('City') }}"/>
+                        <x-input id="city" class="block mt-1 w-full" type="text" name="city[]"/>
+                    </div>
+
+                    <div class="mt-4 address">
+                        <x-label for="address" value="{{ __('Address') }}"/>
+                        <x-input id="address" class="block mt-1 w-full" type="text" name="address[]"/>
+                    </div>
+                </div>
+            </div>
+
+            <div id="duplicateAddress" style="text-decoration: underline; color: blue; cursor: pointer; padding: 10px; border: lightblue;">
+                Add address
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
@@ -68,3 +98,9 @@
         </form>
     </x-authentication-card>
 </x-guest-layout>
+<script>
+    document.getElementById("duplicateAddress").addEventListener("click", function () {
+        let duplicateAddressDiv = document.querySelector(".duplicateAddressDiv").cloneNode(true);
+        document.getElementById("address").appendChild(duplicateAddressDiv);
+    });
+</script>

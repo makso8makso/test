@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\PasswordValidationRules;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -63,8 +64,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('admin')
-        ->with('success', 'User deleted successfully.');
+        $users = User::paginate(3);
+        return view('admin.index', compact('users'));
     }
 
     public function create()
@@ -88,13 +89,23 @@ class UserController extends Controller
             $photoPath = $request->all()['photo']->store('photos', 'public');
         }
 
-        User::create([
+        $user = User::create([
             'name' => $request->all()['name'],
             'email' => $request->all()['email'],
             'phone_number' => $request->all()['phone_number'],
             'profile_photo_path' => $photoPath,
             'password' => Hash::make($request->all()['password']),
         ]);
+
+        $numberAddress = count($request->all()['country']);
+        for ($i = 0; $i < $numberAddress; $i++) {
+            $user->addresses()->create([
+                'country' => $request->all()['country'][$i],
+                'city' => $request->all()['city'][$i],
+                'postal_code' => $request->all()['postal_code'][$i],
+                'address' => $request->all()['address'][$i],
+            ]);
+        }
 
         $users = User::paginate(3);
 
