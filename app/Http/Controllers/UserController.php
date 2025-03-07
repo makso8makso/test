@@ -133,4 +133,19 @@ class UserController extends Controller
 
         return redirect()->route('admin')->with('success', 'User updated successfully!')->with('users', $users);
     }
+
+    public function bulkUpdate(Request $request)
+    {
+        $validated = $request->validate([
+            'user_ids' => 'array',
+            'status' => 'in:active,inactive,banned',
+        ]);
+
+        User::whereIn('id', $validated['user_ids'])
+            ->update(['status' => $validated['status']]);
+
+        $users = User::paginate(3);
+
+        return redirect()->route('admin')->with('success', 'Users updated successfully.')->with('users', $users);
+    }
 }

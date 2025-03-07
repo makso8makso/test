@@ -18,4 +18,5 @@ Route::middleware([
     Route::delete('/admin/user/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
     Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
     Route::post('/user', [UserController::class, 'store'])->name('admin.user.store');
+    Route::post('/users/bulk-update', [UserController::class, 'bulkUpdate'])->name('users.bulk-update');
 });
