@@ -87,7 +87,7 @@ class UserController extends Controller
         $user->delete();
 
         $users = User::paginate(3);
-        return view('admin.index', compact('users'));
+        return redirect()->route('admin')->with('success', 'User updated successfully!')->with('users', $users);
     }
 
     public function create()
