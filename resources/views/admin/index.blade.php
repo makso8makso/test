@@ -51,7 +51,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->status }}</td>
                                 <td>
-                                    <form action="{{ route('admin.user.show', $user->id) }}" method="GET" onsubmit="return confirm('Are you sure you want to edit this user?')">
+                                    <form action="{{ route('admin.user.update', $user->id) }}" method="GET" onsubmit="return confirm('Are you sure you want to edit this user?')">
                                         @csrf
                                         <button type="submit" class="btn btn-warning">Edit</button>
                                     </form>

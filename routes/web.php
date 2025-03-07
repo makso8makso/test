@@ -13,7 +13,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/admin', [UserController::class, 'index'])->name('admin');
-    Route::get('/admin/user/{id}', [UserController::class, 'show'])->name('admin.user.show');
+    Route::get('/admin/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
     Route::put('/admin/user/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
     Route::delete('/admin/user/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
     Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');

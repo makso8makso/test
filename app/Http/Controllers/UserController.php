@@ -22,10 +22,10 @@ class UserController extends Controller
         return view('admin.index', compact('users'));
     }
 
-    public function show($id)
+    public function update($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.user.show', compact('user'));
+        return view('admin.user.update', compact('user'));
     }
 
     public function edit(Request $request, $id)
