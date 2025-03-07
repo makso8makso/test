@@ -51,19 +51,43 @@
                         @endif
                     </div>
 
-                    <div class="mt-4">
-                        <x-label for="password" value="{{ __('Password') }}" />
-                        <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-                    </div>
-
-                    <div class="mt-4">
-                        <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                        <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-                    </div>
-
                     <div class="mt-4 mb-4">
-                        <x-label for="photo" value="{{ __('Photo') }}"/>
+                        <x-label for="photo" value="{{ __('Choose photo') }}"/>
                         <x-input id="photo" class="block mt-1 w-full" type="file" name="photo"/>
+                    </div>
+
+                    <x-label for="addresses" value="{{ __('Addresses') }}" class="mt-3"/>
+                    <div id="address" class="mb-4">
+                        @foreach($user->addresses as $address)
+                            <div class="mt-4 duplicateAddressDiv">
+                                <hr>
+                                <div class="mt-4 country">
+                                    <x-label for="country" value="{{ __('Country') }}"/>
+                                    <x-input id="country" class="block mt-1 w-full" type="text" value="{{ old('country.' . $loop->index, $address->country) }}" name="country[]"/>
+                                </div>
+
+                                <div class="mt-4 postal_code">
+                                    <x-label for="postal_code" value="{{ __('Postal code') }}"/>
+                                    <x-input id="postal_code" class="block mt-1 w-full" type="text" value="{{ old('postal_code' . $loop->index, $address->postal_code) }}" name="postal_code[]"/>
+                                </div>
+
+                                <div class="mt-4 city">
+                                    <x-label for="city" value="{{ __('City') }}"/>
+                                    <x-input id="city" class="block mt-1 w-full" type="text" value="{{ old('city' . $loop->index, $address->city) }}" name="city[]"/>
+                                </div>
+
+                                <div class="mt-4 address">
+                                    <x-label for="address" value="{{ __('Address') }}"/>
+                                    <x-input id="address" class="block mt-1 w-full" type="text" value="{{ old('address' . $loop->index, $address->address) }}" name="address[]"/>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div id="duplicateAddress" style="text-decoration: underline; color: blue; cursor: pointer; padding: 10px; border: lightblue;">
+                        Add address
+                    </div>
+                    <div id="removeAddress" style="text-decoration: underline; color: blue; cursor: pointer; padding: 10px; border: lightblue;">
+                        Remove address
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
@@ -73,3 +97,16 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    document.getElementById("duplicateAddress").addEventListener("click", function () {
+        let duplicateAddressDiv = document.querySelector(".duplicateAddressDiv").cloneNode(true);
+        document.getElementById("address").appendChild(duplicateAddressDiv);
+    });
+    document.getElementById("removeAddress").addEventListener("click", function () {
+        let elements = document.querySelectorAll('.duplicateAddressDiv');
+        if (elements.length > 0) {
+            elements[elements.length - 1].remove();
+        }
+    });
+</script>
